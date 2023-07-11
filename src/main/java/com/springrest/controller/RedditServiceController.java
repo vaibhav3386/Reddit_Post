@@ -62,14 +62,4 @@ public class RedditServiceController {
         return redditService.postArticle(subreddit,title,text,authToken);
     }
 
-    // It fetches in all existing subreddits in 2 minutes and add it into our database if it doesn't exist before.
-    @Scheduled(fixedDelay = 120000, initialDelay = 0)
-    public void sync() throws JsonProcessingException {
-        System.out.println("Started syncing posts");
-        List<String> subreddits = redditService.fetchAllSubreddits();
-        for (String subreddit: subreddits) {
-            redditService.readArticles(subreddit);
-        }
-        System.out.println("Stopped syncing posts");
-    }
 }

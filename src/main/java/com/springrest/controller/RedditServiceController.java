@@ -19,10 +19,22 @@ public class RedditServiceController {
         this.redditService = redditService;
     }
 
-    // localhost:8099/subredditname to store and see all hot posts on that subreddit ,and also it add posts to database if it doesn't exist
+    // localhost:8099/subredditname to see and add all hot posts in database of that subreddit
+    @GetMapping("/addPost/{subredditname}")
+    public List<RedditPostStructure> addData(@PathVariable String subredditname) throws JsonProcessingException {
+        return redditService.addArticles(subredditname);
+    }
+
+    // localhost:8099/subredditname to see all hot posts on that subreddit
     @GetMapping("/{subredditname}")
     public List<RedditPostStructure> getAllComments(@PathVariable String subredditname) throws JsonProcessingException {
         return redditService.readArticles(subredditname);
+    }
+
+    // localhost:8099/fetchAllSubreddits to see all subreddits present in onr database
+    @GetMapping("/fetchAllSubreddits")
+    public List<String> getAllSubreddits(){
+        return redditService.fetchAllSubreddits();
     }
 
     // localhost:8099/search/keyword to see all hot posts containing that word
@@ -32,7 +44,7 @@ public class RedditServiceController {
     }
 
     // localhost:8099/delete/subredditname to see and delete all posts on that subreddit
-    @GetMapping("/delete/{subredditname}")
+    @DeleteMapping("/delete/{subredditname}")
     public List<RedditPostStructure> deleteByUser(@PathVariable String subredditname){
         return redditService.deleteBySubreddit(subredditname);
     }

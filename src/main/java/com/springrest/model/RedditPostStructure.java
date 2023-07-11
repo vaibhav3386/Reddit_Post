@@ -35,6 +35,7 @@ public class RedditPostStructure {
     public void setCreated(Double created) {
         this.created = created;
     }
+
     public RedditPostStructure(String subreddit, String title, Double created) {
         this.subreddit = subreddit;
         this.title = title;
